@@ -7,10 +7,10 @@ async function seed() {
 
     console.log("DB Reset Done");
 
-    // 🔐 Hash password
+    //  Hash password
     const hashedPassword = await bcrypt.hash("Admin@123", 10);
 
-    // 👤 USERS
+    //  USERS
     const admin = await User.create({
       name: "Admin User",
       email: "admin@gmail.com",
@@ -37,7 +37,7 @@ async function seed() {
 
     console.log("Users Created");
 
-    // 🏪 STORES (linked to owner)
+    //  STORES (linked to owner)
    await Store.bulkCreate([
   {
     name: "Reliance Smart Super Market Delhi",
@@ -163,7 +163,7 @@ async function seed() {
 
     console.log("Stores Created");
 
-    console.log("✅ SEEDING DONE SUCCESSFULLY");
+    console.log("SEEDING DONE SUCCESSFULLY");
 
     process.exit();
   } catch (err) {

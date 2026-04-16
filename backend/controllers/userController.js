@@ -1,39 +1,33 @@
-const { Store, Rating, sequelize } = require("../models");
+const { Store, Rating } = require("../models");
 
-// ✅ GET STORES (Optimized + Avg + User Rating)
+//  Get all stores with avg + user rating
 exports.getStores = async (req, res) => {
   try {
-    const stores = await Store.findAll({
-      attributes: {
-        include: [
-          [
-            sequelize.fn("AVG", sequelize.col("Ratings.rating")),
-            "avgRating",
-          ],
-        ],
-      },
-      include: [
-        {
-          model: Rating,
-          attributes: ["rating", "user_id"],
-        },
-      ],
-      group: ["Store.id", "Ratings.id"],
-      order: [["name", "ASC"]],
-    });
+    const stores = await Store.findAll();
+    const ratings = await Rating.findAll();
 
-    const result = stores.map((store) => {
-      const ratings = store.Ratings;
+    const result = stores.map(store => {
+      const storeRatings = ratings.filter(
+        r => r.store_id === store.id
+      );
 
-      const userRatingObj = ratings.find(
-        (r) => r.user_id === req.user.id
+      //  Average Rating
+      const avgRating =
+        storeRatings.length > 0
+          ? (
+              storeRatings.reduce((sum, r) => sum + r.rating, 0) /
+              storeRatings.length
+            ).toFixed(1)
+          : 0;
+
+      //  Current User Rating
+      const userRatingObj = storeRatings.find(
+        r => r.user_id === req.user.id
       );
 
       return {
         ...store.toJSON(),
-        avgRating: Number(
-          parseFloat(store.dataValues.avgRating || 0).toFixed(1)
-        ),
+        avgRating: Number(avgRating),
         userRating: userRatingObj ? userRatingObj.rating : null,
       };
     });
@@ -45,24 +39,26 @@ exports.getStores = async (req, res) => {
   }
 };
 
-// ⭐ ADD / UPDATE RATING
+
+
+//  Add / Update Rating
 exports.addRating = async (req, res) => {
   try {
     const { store_id, rating } = req.body;
 
-    // ✅ Validation
-    if (!store_id || rating == null) {
+    //  Validation
+    if (!store_id || !rating) {
       return res.status(400).json({ msg: "All fields required" });
     }
 
-    if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
-      return res.status(400).json({
-        msg: "Rating must be an integer between 1 and 5",
-      });
+    if (rating < 1 || rating > 5) {
+      return res
+        .status(400)
+        .json({ msg: "Rating must be between 1 and 5" });
     }
 
-    // 🔍 Check existing rating
-    let existing = await Rating.findOne({
+    //  Check if already rated
+    const existing = await Rating.findOne({
       where: { user_id: req.user.id, store_id },
     });
 
@@ -76,6 +72,7 @@ exports.addRating = async (req, res) => {
       });
     }
 
+    //  Create new rating
     const newRating = await Rating.create({
       user_id: req.user.id,
       store_id,
@@ -86,6 +83,7 @@ exports.addRating = async (req, res) => {
       msg: "Rating added",
       rating: newRating,
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: "Server Error" });

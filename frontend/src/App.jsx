@@ -5,7 +5,7 @@ import AdminPanel from "./pages/AdminPanel";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-import Landing from "./pages/Landing"; // ✅ import
+import Landing from "./pages/Landing"; 
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -14,18 +14,18 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* ✅ Landing Page */}
+        {/*  Landing Page */}
         <Route path="/" element={<Landing />} />
 
-        {/* ✅ Login Page */}
+        {/*  Login Page */}
         <Route path="/login" element={<Login />} />
 
-        {/* ✅ Signup */}
+        {/*  Signup */}
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/admin" element={<AdminPanel />} />
 
-        {/* ✅ Protected Dashboard */}
+        {/*  Protected Dashboard */}
         <Route
           path="/dashboard"
           element={user ? <Dashboard /> : <Navigate to="/login" />}

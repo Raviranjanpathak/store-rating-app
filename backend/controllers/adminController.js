@@ -1,6 +1,6 @@
 const { User, Store, Rating } = require("../models");
 
-// 👥 GET USERS WITH OWNER RATING
+//  GET USERS WITH OWNER RATING
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.findAll();
@@ -40,7 +40,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// 📊 DASHBOARD
+//  DASHBOARD
 exports.dashboard = async (req, res) => {
   try {
     const users = await User.count();
@@ -53,9 +53,8 @@ exports.dashboard = async (req, res) => {
   }
 };
 
-//
-// ➕ ADD STORE (FIX ADDED)
-//
+
+// ADD STORE 
 exports.addStore = async (req, res) => {
   try {
     const { name, email, address, owner_id } = req.body;
@@ -73,9 +72,9 @@ exports.addStore = async (req, res) => {
   }
 };
 
-//
-// 🏪 GET STORES (FIX ADDED)
-//
+
+//  GET STORES
+
 exports.getStores = async (req, res) => {
   try {
     const stores = await Store.findAll({

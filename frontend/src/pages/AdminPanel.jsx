@@ -24,7 +24,7 @@ export default function AdminPanel() {
     }
   };
 
-  // 🔍 FILTER + SORT
+  //  FILTER + SORT
   const filteredUsers = users
     .filter((u) =>
       u.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -41,14 +41,14 @@ export default function AdminPanel() {
     <div style={{ padding: "20px" }}>
       <h2>Admin Panel</h2>
 
-      {/* 🔍 SEARCH */}
+      {/*  SEARCH */}
       <input
         placeholder="Search users..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {/* 🔽 SORT */}
+      {/*  SORT */}
       <button
         onClick={() =>
           setSortOrder(sortOrder === "asc" ? "desc" : "asc")
@@ -57,7 +57,7 @@ export default function AdminPanel() {
         Sort: {sortOrder.toUpperCase()}
       </button>
 
-      {/* 👥 USERS */}
+      {/*  USERS */}
       <h3>Users</h3>
 
       {filteredUsers.map((u) => (
@@ -77,7 +77,7 @@ export default function AdminPanel() {
         </div>
       ))}
 
-      {/* 🪟 MODAL */}
+      {/*  MODAL */}
       {selectedUser && (
         <div style={{
           position: "fixed",
@@ -114,7 +114,7 @@ export default function AdminPanel() {
         </div>
       )}
 
-      {/* 🏪 STORES */}
+      {/*  STORES */}
       <h3>Stores</h3>
       {stores.map((s) => (
   <div key={s.id}>

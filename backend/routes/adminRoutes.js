@@ -3,7 +3,7 @@ const auth = require("../middleware/authMiddleware");
 
 const adminController = require("../controllers/adminController");
 
-// ✅ IMPORTANT: use full object (not destructuring)
+
 
 router.post("/add-store", auth(["admin"]), adminController.addStore);
 router.get("/dashboard", auth(["admin"]), adminController.dashboard);

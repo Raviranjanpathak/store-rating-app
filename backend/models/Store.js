@@ -6,7 +6,7 @@ const Store = sequelize.define("Store", {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      len: [20, 60], // ✅ assignment rule
+      len: [20, 60], 
     },
   },
 
@@ -14,12 +14,12 @@ const Store = sequelize.define("Store", {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isEmail: true, // ✅ email validation
+      isEmail: true, 
     },
   },
 
   address: {
-    type: DataTypes.STRING(400), // ✅ max 400 chars
+    type: DataTypes.STRING(400), 
     allowNull: false,
   },
 

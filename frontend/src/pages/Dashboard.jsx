@@ -10,11 +10,11 @@ export default function Dashboard() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
 
-  // ✅ NEW (ADMIN USERS)
+  //  NEW (ADMIN USERS)
   const [users, setUsers] = useState([]);
   const [userSearch, setUserSearch] = useState("");
 
-  // ✅ FETCH DATA
+  //  FETCH DATA
   useEffect(() => {
     if (!user) return;
 
@@ -29,7 +29,7 @@ export default function Dashboard() {
           const res = await API.get("/admin/dashboard");
           setData(res.data);
 
-          // ✅ FETCH USERS
+          //  FETCH USERS
           const u = await API.get("/admin/users");
           setUsers(u.data);
         }
@@ -47,7 +47,7 @@ export default function Dashboard() {
     fetchData();
   }, [user]);
 
-  // ✅ USER STORE FILTER
+  //  USER STORE FILTER
   let filteredStores = [];
 
   if (user?.role === "user" && Array.isArray(data)) {
@@ -58,7 +58,7 @@ export default function Dashboard() {
     );
   }
 
-  // ✅ ADMIN USER FILTER
+  //  ADMIN USER FILTER
   const filteredUsers = users.filter(
     (u) =>
       u.name?.toLowerCase().includes(userSearch.toLowerCase()) ||
@@ -67,7 +67,7 @@ export default function Dashboard() {
       u.role?.toLowerCase().includes(userSearch.toLowerCase())
   );
 
-  // ⭐ RATE STORE
+  //  RATE STORE
   const rate = async (storeId, value) => {
     try {
       await API.post("/user/rate", {
@@ -80,7 +80,7 @@ export default function Dashboard() {
       const res = await API.get("/user/stores");
       setData(res.data);
     } catch {
-      toast.error("Error rating ❌");
+      toast.error("Error rating ");
     }
   };
 
@@ -96,7 +96,7 @@ export default function Dashboard() {
         Logout
       </button>
 
-      {/* 🔐 PASSWORD UPDATE */}
+      {/*  PASSWORD UPDATE */}
       <div style={{ marginBottom: "20px" }}>
         <input
           type="password"
@@ -194,7 +194,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* 🔍 USER SEARCH */}
+          {/*  USER SEARCH */}
           <input
             placeholder="🔍 Search users..."
             value={userSearch}
@@ -202,7 +202,7 @@ export default function Dashboard() {
             style={styles.search}
           />
 
-          {/* 👥 USER LIST */}
+          {/*  USER LIST */}
           <div style={{ marginTop: "20px" }}>
             <h3 style={{ color: "#fff" }}>Users</h3>
 
