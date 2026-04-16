@@ -1,0 +1,23 @@
+{
+  "name": "store-rating-app",
+  "version": "1.0.0",
+  "description": "Full Stack Store Rating App",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd backend && nodemon server.js",
+    "client": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install-all": "cd backend && npm install && cd ../frontend && npm install"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1",
+    "react-icons": "^5.6.0"
+  }
+}
