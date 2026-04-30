@@ -14,6 +14,7 @@ exports.signup = async (req, res) => {
       email,
       password: hashed,
       address,
+      role: role === "owner" ? "owner" : "user"
     });
 
     res.json(user);

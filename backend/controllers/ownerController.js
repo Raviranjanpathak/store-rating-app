@@ -3,9 +3,9 @@ const { Sequelize } = require("sequelize");
 
 exports.dashboard = async (req, res) => {
   try {
-    const store = await Store.findOne({
-      where: { owner_id: req.user.id },
-    });
+    const stores = await Store.findAll({
+  where: { owner_id: req.user.id },
+});
 
     if (!store) {
       return res.json({ ratings: [], avgRating: 0 });

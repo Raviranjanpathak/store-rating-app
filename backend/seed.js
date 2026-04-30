@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 
 async function seed() {
   try {
-    await sequelize.sync({ force: true }); // ⚠️ resets DB
+    await sequelize.sync(); 
 
     console.log("DB Reset Done");
 
@@ -12,7 +12,7 @@ async function seed() {
 
     //  USERS
     const admin = await User.create({
-      name: "Admin User",
+      name: "Raviranjan",
       email: "admin@gmail.com",
       password: hashedPassword,
       address: "Delhi",
