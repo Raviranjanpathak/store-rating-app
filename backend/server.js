@@ -9,7 +9,10 @@ sequelize.sync().then(() => {
   console.log("DB Connected");
 });
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://your-frontend.onrender.com"
+  ],
   credentials: true
 }));
 
